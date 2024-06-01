@@ -1,0 +1,11 @@
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\bin\Debug\net7.0\Entidades.deps.json
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\bin\Debug\net7.0\Entidades.dll
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\bin\Debug\net7.0\Entidades.pdb
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.GeneratedMSBuildEditorConfig.editorconfig
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.AssemblyInfoInputs.cache
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.AssemblyInfo.cs
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.csproj.CoreCompileInputs.cache
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.dll
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\refint\Entidades.dll
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.pdb
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\ref\Entidades.dll
