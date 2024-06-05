@@ -1,4 +1,17 @@
-﻿using Entidades;
+﻿/*
+ * Sobre la puntuación provisional después del testing de hoy:
+--> 8 - Los que sacaron más de 35 en el testing - puede añadir +2 si se añadió un excepción
+--> 6 - Los que sacaron entre 30 y 34 (incluidos) - puede añadir +2 si se añadió un excepción
+--> 4 - los que sacaron entre 25 y 29 (incluidos) - está para aprobar pero no para promocionar. 
+--> 2 - Los que sacaron menos de 25, código con warnings, que lanza excepciones no controladas o directamente no compila - Desaprobado.
+
+Puntuación provisional después de que yo revise el código:
+   Los que tienen 6 u 8 pueden ver que su nota baje en los siguientes casos:
+--> baja a 2 - El código no compila, manda warnings, lanza excepciones no controladas, tiene un commit tardío o el código tiene errores MUY groseros.
+--> baja a 4 ó 6 - Si el código tiene errores de concepto (dependerá de la gravedad).
+ Hoja de testing de la profe 
+ */
+using Entidades;
 namespace Test
 {
     internal class Program
@@ -35,17 +48,6 @@ namespace Test
             pudo = m + m4;
             pudo = m + m5;
             pudo = m + m6;
-            
-            try
-            {
-                pudo = m + l1; // Debería fallar y lanzar excepción
-                pudo = l + m1; // Debería fallar y lanzar excepción
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
             // Cambiar los estados
             l1.AvanzarEstado(); // En Revisión
             l1.AvanzarEstado(); // En Revisión
@@ -71,7 +73,16 @@ namespace Test
             Informes.MostrarEnEscaner(m, out int extensionMapaEnEsc, out int cantidadMapaEnEsc, out string resumenMapaEnEsc);
             Informes.MostrarEnRevision(m, out int extensionMapaEnRev, out int cantidadMapaEnRev, out string resumenMapaEnRev);
             Informes.MostrarTerminados(m, out int extensionMapaTerminado, out int cantidadMapaTerminado, out string resumenMapaTerminado);
-
+            
+            try
+            {
+                pudo = m + l1; // Debería fallar y lanzar excepción
+                pudo = l + m1; // Debería fallar y lanzar excepción
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             int puntos = 0;
 
             if (extensionLibroDistr == 0) { puntos += 3; }

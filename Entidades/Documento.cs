@@ -39,35 +39,14 @@ namespace Entidades
         // El metodo AvanzarEstado verifica en que estado esta el libro o el mapa y avanza segun en donde deste
         public bool AvanzarEstado()
         {
-            if (this.estado == Paso.Inicio)
+            if (this.estado < Paso.Terminado)
             {
-                this.estado = Paso.Distribuido;
+                this.estado++;
                 return true;
             }
-            else if (this.estado == Paso.Distribuido)
-            {
-                this.estado = Paso.EnEscaner;
-                return true;
-            }
-            else if (this.estado == Paso.EnEscaner)
-            {
-                this.estado = Paso.EnRevicion;
-                return true;
-            }
-            else if (this.estado == Paso.EnRevicion)
-            {
-                this.estado = Paso.Terminado;
-                return true;
-            }
-            else if (this.estado == Paso.Terminado)
-            {
-                return false;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
+
         // utilizo el metodo ToString para generar un stringBuilder y retornarlo con los datos
         public override string ToString()
         {

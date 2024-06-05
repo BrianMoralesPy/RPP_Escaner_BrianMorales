@@ -9,3 +9,4 @@ D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades
 D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\refint\Entidades.dll
 D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.pdb
 D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\ref\Entidades.dll
+D:\PROGRAMACION\C#\RPP_Escaner_BrianMorales\Entidades\obj\Debug\net7.0\Entidades.sourcelink.json

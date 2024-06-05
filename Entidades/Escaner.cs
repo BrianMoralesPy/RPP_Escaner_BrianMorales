@@ -68,12 +68,21 @@ namespace Entidades
             foreach (Documento doc in e.listaDocumentos)
             {
                 if ((d is Libro && doc is Libro && ((Libro)d) == ((Libro)doc)) ||
-                    (d is Mapa && doc is Mapa && ((Mapa)d) == ((Mapa)doc)))
+                (d is Mapa && doc is Mapa && ((Mapa)d) == ((Mapa)doc)))
                 {
                     return true;
                 }
+                else if ((d is Libro && doc is Libro && ((Libro)d) != ((Libro)doc)) ||
+                (d is Mapa && doc is Mapa && ((Mapa)d) != ((Mapa)doc)))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Escaner.cs", "Validación ==");
+                }
             }
-            throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Escaner.cs", "Validación ==");
+            return false;
         }
         //la sobrecarga del operador + intenta añadir el documento a la lista de documentos, debe añadirlo solo si esta en estado inicio , se añade a la lista
         // y ademas cambia el estado a distribuido luego controla la excepcion generada en la sobrecarga del == para generar otra excepcion y controlarla
@@ -86,9 +95,12 @@ namespace Entidades
                 {
                     if (d.Estado == Documento.Paso.Inicio)
                     {
-                        d.AvanzarEstado();
-                        e.listaDocumentos.Add(d);
-                        return true;
+                        if (e != d)
+                        {
+                            d.AvanzarEstado();
+                            e.listaDocumentos.Add(d);
+                            return true;
+                        }
                     }
                 }
                 else
@@ -96,6 +108,7 @@ namespace Entidades
                     // Verificación usando el operador ==
                     if (e != d)
                     {
+
                         return false;
                     }
                 }
@@ -104,6 +117,7 @@ namespace Entidades
             {
                 throw new TipoIncorrectoException("El documento no se pudo añadir a la lista", "Escaner.cs", "sobrecarga +", ex);
             }
+
             return false;
         }
         public static bool operator !=(Escaner e, Documento d)
