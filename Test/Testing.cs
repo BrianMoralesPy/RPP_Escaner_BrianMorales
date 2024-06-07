@@ -1,88 +1,87 @@
-﻿/*
- * Sobre la puntuación provisional después del testing de hoy:
---> 8 - Los que sacaron más de 35 en el testing - puede añadir +2 si se añadió un excepción
---> 6 - Los que sacaron entre 30 y 34 (incluidos) - puede añadir +2 si se añadió un excepción
---> 4 - los que sacaron entre 25 y 29 (incluidos) - está para aprobar pero no para promocionar. 
---> 2 - Los que sacaron menos de 25, código con warnings, que lanza excepciones no controladas o directamente no compila - Desaprobado.
-
-Puntuación provisional después de que yo revise el código:
-   Los que tienen 6 u 8 pueden ver que su nota baje en los siguientes casos:
---> baja a 2 - El código no compila, manda warnings, lanza excepciones no controladas, tiene un commit tardío o el código tiene errores MUY groseros.
---> baja a 4 ó 6 - Si el código tiene errores de concepto (dependerá de la gravedad).
- Hoja de testing de la profe 
- */
-using Entidades;
+﻿using Entidades;
 namespace Test
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            //Arreglado  el metodo Tostring() y repeticion de codigo en los operadores 
+
+
             // LIBROS
+            // Caminos felices
             Libro l1 = new Libro("Yerma", "García Lorca, Federico", 1995, "11111", "22222", 100);
             Libro l2 = new Libro("Bodas de sangre", "García Lorca, Federico", 1997, "11112", "22223", 200);
+            // Barcode repetido
             Libro l3 = new Libro("Codebar repetido", "García Lorca, Federico", 2003, "11113", "22222", 3);
+            // ISBN repetido
             Libro l4 = new Libro("ISBN repetido", "García Lorca, Federico", 2003, "11112", "22224", 2);
+            // Título-autor repetido
             Libro l5 = new Libro("Yerma", "García Lorca, Federico", 2003, "55555", "66666", 1);
 
-            // MAPAS 
+            //MAPAS 
+            // Caminos felices
             Mapa m1 = new Mapa("Buenos Aires", "Instituto Geográfico de Buenos Aires", 2005, "", "99999", 30, 15); //450
             Mapa m2 = new Mapa("Mendoza", "Instituto Geográfico de Mendoza", 2008, "", "99990", 100, 30); //300
             Mapa m3 = new Mapa("Santa Fe", "Instituto Geográfico de Santa Fe", 2010, "", "99991", 80, 30); //2400
             Mapa m4 = new Mapa("Corrientes", "Instituto Geográfico de Corrientes", 2013, "", "99992", 50, 25); //1250
-            Mapa m5 = new Mapa("Barcode repetido", "Instituto Geográfico", 2015, "", "99999", 40, 15); //600
-            Mapa m6 = new Mapa("Buenos Aires", "Instituto Geográfico de Buenos Aires", 2005, "", "99993", 30, 15); //200
+            // Barcode repetido
+            Mapa m5 = new Mapa("Barcode repetido", "Instituto Geográfico", 2015, "", "99999", 40, 15);//600
+            // Título - autor - superficie
+            Mapa m6 = new Mapa("Buenos Aires", "Instituto Geográfico de Buenos Aires", 2005, "", "99993", 30, 15);//200
 
-            // ESCANERS
+            //ESCANERS
             Escaner l = new Escaner("HP", Escaner.TipoDoc.libro);
             Escaner m = new Escaner("HP", Escaner.TipoDoc.mapa);
+            try
+            {
 
-            bool pudo = l + l1;
-            pudo = l + l2;
-            pudo = l + l3;
-            pudo = l + l4;
-            pudo = l + l5;
-            pudo = m + m1;
-            pudo = m + m2;
-            pudo = m + m3;
-            pudo = m + m4;
-            pudo = m + m5;
-            pudo = m + m6;
-            // Cambiar los estados
-            l1.AvanzarEstado(); // En Revisión
-            l1.AvanzarEstado(); // En Revisión
-            l2.AvanzarEstado(); // En Revisión
-            l2.AvanzarEstado(); // En Revisión
-            m2.AvanzarEstado(); // En Escáner
-            m3.AvanzarEstado(); // Terminado
-            m3.AvanzarEstado(); // Terminado
-            m3.AvanzarEstado(); // Terminado
-            m4.AvanzarEstado(); // Terminado
-            m4.AvanzarEstado(); // Terminado
-            m4.AvanzarEstado(); // Terminado
-            m4.AvanzarEstado(); // Terminado
-            m4.AvanzarEstado(); // Terminado
+                bool pudo = l + l1;
+                pudo = l + l2;
+                pudo = m + m1;
+                pudo = m + m2;
+                pudo = m + m3;
+                pudo = m + m4;
+                pudo = l + l3;
+                pudo = l + l4;
+                pudo = l + l5;
+                pudo = m + m5;
+                pudo = m + m6;
+                pudo = m + l1;
+                pudo = l + m1;
+            }
+            catch (TipoIncorrectoException ex)
+            {
 
-            // Generar informes
+                Console.WriteLine(ex.ToString());
+            }
+
+
+
+            l1.AvanzarEstado();
+            l1.AvanzarEstado();
+            l2.AvanzarEstado();
+            l2.AvanzarEstado();
+            m2.AvanzarEstado();
+            m3.AvanzarEstado();
+            m3.AvanzarEstado();
+            m3.AvanzarEstado();
+            m4.AvanzarEstado();
+            m4.AvanzarEstado();
+            m4.AvanzarEstado();
+            m4.AvanzarEstado();
+            m4.AvanzarEstado();
+
             Informes.MostrarDistribuidos(l, out int extensionLibroDistr, out int cantidadLibroDistr, out string resumenLibroDistr);
             Informes.MostrarEnEscaner(l, out int extensionLibroEnEsc, out int cantidadLibroEnEsc, out string resumenLibroEnEsc);
             Informes.MostrarEnRevision(l, out int extensionLibroEnRev, out int cantidadLibroEnRev, out string resumenLibroEnRev);
             Informes.MostrarTerminados(l, out int extensionLibroTerminado, out int cantidadLibroTerminado, out string resumenLibroTerminado);
 
             Informes.MostrarDistribuidos(m, out int extensionMapaDistr, out int cantidadMapaDistr, out string resumenMapaDistr);
-            Informes.MostrarEnEscaner(m, out int extensionMapaEnEsc, out int cantidadMapaEnEsc, out string resumenMapaEnEsc);
+            Informes.MostrarEnEscaner(m, out int extensionMapaEnEsc, out int cantidadMapaEnEsc, out string resumenMapaEnEsc); ;
             Informes.MostrarEnRevision(m, out int extensionMapaEnRev, out int cantidadMapaEnRev, out string resumenMapaEnRev);
             Informes.MostrarTerminados(m, out int extensionMapaTerminado, out int cantidadMapaTerminado, out string resumenMapaTerminado);
-            
-            try
-            {
-                pudo = m + l1; // Debería fallar y lanzar excepción
-                pudo = l + m1; // Debería fallar y lanzar excepción
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
+
             int puntos = 0;
 
             if (extensionLibroDistr == 0) { puntos += 3; }

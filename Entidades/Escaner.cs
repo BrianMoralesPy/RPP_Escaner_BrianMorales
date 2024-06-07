@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -65,24 +66,36 @@ namespace Entidades
         // ademas se agrega de que si el escaner no tiene su documento correspondiente se lanza la excepcion y es controlada en la sobrecarga del +
         public static bool operator ==(Escaner e, Documento d)
         {
-            foreach (Documento doc in e.listaDocumentos)
+            /*TipoDoc tipoDeDocumento;
+            if (d is Libro)
             {
-                if ((d is Libro && doc is Libro && ((Libro)d) == ((Libro)doc)) ||
-                (d is Mapa && doc is Mapa && ((Mapa)d) == ((Mapa)doc)))
-                {
-                    return true;
-                }
-                else if ((d is Libro && doc is Libro && ((Libro)d) != ((Libro)doc)) ||
-                (d is Mapa && doc is Mapa && ((Mapa)d) != ((Mapa)doc)))
+                tipoDeDocumento = TipoDoc.libro;
+            }
+            else
+            {
+                tipoDeDocumento = TipoDoc.mapa;
+            }*/
+            TipoDoc tipoDeDocumento = d is Libro ? TipoDoc.libro : TipoDoc.mapa;//esta linea es lo mismo que hacer la las lineas comentadas de arriba
+            if (e.tipo == tipoDeDocumento)
+            {
+                if (e.listaDocumentos.Count == 0)
                 {
                     return false;
                 }
                 else
                 {
-                    throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Escaner.cs", "Validación ==");
+                    foreach (Documento item in e.ListaDocumentos)
+                    {
+                        if ((d is Mapa && (Mapa)d == (Mapa)item) ||
+                        (d is Libro && (Libro)d == (Libro)item))
+                        {
+                            throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Entidades", "sobrecarga del operador ==");
+                        }
+                    }
                 }
             }
             return false;
+
         }
         //la sobrecarga del operador + intenta añadir el documento a la lista de documentos, debe añadirlo solo si esta en estado inicio , se añade a la lista
         // y ademas cambia el estado a distribuido luego controla la excepcion generada en la sobrecarga del == para generar otra excepcion y controlarla
@@ -90,39 +103,39 @@ namespace Entidades
         {
             try
             {
-                if ((d is Libro && e.locacion == Departamento.procesosTecnicos && e.tipo == TipoDoc.libro) ||
-                    (d is Mapa && e.locacion == Departamento.mapoteca && e.tipo == TipoDoc.mapa))
+                if (e != d && d.Estado == Documento.Paso.Inicio)
                 {
-                    if (d.Estado == Documento.Paso.Inicio)
+                    if (d.GetType() == typeof(Libro) && e.Locacion == Departamento.procesosTecnicos)
                     {
-                        if (e != d)
-                        {
-                            d.AvanzarEstado();
-                            e.listaDocumentos.Add(d);
-                            return true;
-                        }
-                    }
-                }
-                else
-                {
-                    // Verificación usando el operador ==
-                    if (e != d)
-                    {
+                        d.AvanzarEstado();
+                        e.ListaDocumentos.Add(d);
+                        return true;
 
+                    }
+                    else if (d.GetType() == typeof(Mapa) && e.locacion == Departamento.mapoteca)
+                    {
+                        d.AvanzarEstado();
+                        e.ListaDocumentos.Add(d);
+                        return true;
+                    }
+                    else
+                    {
                         return false;
                     }
+                }
+                else 
+                {
+                    return false;
                 }
             }
             catch (TipoIncorrectoException ex)
             {
-                throw new TipoIncorrectoException("El documento no se pudo añadir a la lista", "Escaner.cs", "sobrecarga +", ex);
+                throw new TipoIncorrectoException("El documento no se pudo añadir a la lista", "Entidades", "sobrecarga del operador +", ex);
             }
-
-            return false;
         }
         public static bool operator !=(Escaner e, Documento d)
         {
-            return !(e == d);
+                return !(e == d);
         }
         
     }
